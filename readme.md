@@ -208,6 +208,9 @@ If not run it again
 
     curl http://127.0.0.1:8080/function/adsl-demo
 
+    
+If all is good you can modify the code to your liking. Add js code to handler.js. You can copy the weather demo code from this repo Create an accout at openweathermap.org and gererate your api key. install sync-request (npm install sync-request). Add your accout name to the app .yml file (image: your_dockerhub_acct/rac-hello-world:latest)
+    
     faas-cli build -f adsl-demo.yml; 
     faas-cli push -f adsl-demo.yml; 
     faas-cli deploy -f adsl-demo.yml; 
