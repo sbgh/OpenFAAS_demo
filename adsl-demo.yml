@@ -1,0 +1,12 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://127.0.0.1:8080
+functions:
+  adsl-demo:
+    lang: node
+    handler: ./adsl-demo
+    image: dhscott/adsl-demo:latest
+    environment:
+      owkey: 97bd293949521dc4ee2489c8b72f3ec9
+
