@@ -4,7 +4,7 @@
 
 The following are the approximate steps to create an OpenFaaS instance with Kubernetes and Docker.
 
-There is no reason to clone this repository. Following the instructions below will build the OpenFAAS file structure. 
+Following the instructions below will build a single OpenFAAS server. You do not need to clone this repository but you can use it as an example.
 
 See demo docker containers on [Dockerhub](https://hub.docker.com/r/dhscott/adsl-demo)
 
