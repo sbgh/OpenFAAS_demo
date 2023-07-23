@@ -142,7 +142,7 @@ Install nodejs
 
     sudo apt install -y nodejs
 
-**Configur OpenFAAS**
+**Configure OpenFAAS**
 Based on:
 https://hackernoon.com/how-to-create-serverless-functions-with-openfaas-in-17-steps-u21l3y7m
   
@@ -161,6 +161,8 @@ If not run it again
     faas-cli template store list
 
 Create account on DockerHub
+
+[https://hub.docker.com/](https://hub.docker.com/)
 
 Logon to DockerHub
 
@@ -206,12 +208,12 @@ Run the function
     curl http://127.0.0.1:8080/function/adsl-demo
 
     
-If all is good you can modify the code to your liking. Add js code to handler.js. You can copy the weather demo code from this repo Create an accout at openweathermap.org and gererate your api key. install sync-request (npm install sync-request). 
+If all is good you can modify the code. Add js code to handler.js. You can copy the weather demo code from this repo Create an accout at openweathermap.org and gererate your api key. install sync-request (npm install sync-request). 
     
     faas-cli build -f adsl-demo.yml; 
     faas-cli push -f adsl-demo.yml; 
     faas-cli deploy -f adsl-demo.yml; 
     
-Call funtion     
+Call function     
 
     curl http://127.0.0.1:8080/function/adsl-demo
