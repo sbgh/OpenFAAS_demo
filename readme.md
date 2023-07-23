@@ -86,22 +86,21 @@ To retrieve the admin password, run:
 
     echo $(kubectl -n openfaas get secret basic-auth -o jsonpath="{.data.basic-auth-password}" | base64 --decode)
 
-  
-xxxxxxxxxxxxxxxxx
-
-    arkade info openfaas
-
-—————————————————
+    xxxxxxxxxxxxxxxxx
 
 Info for app: openfaas
 
-# Get the faas-cli
+    arkade info openfaas
+
+Info for app: openfaas
+
+**Get the faas-cli**
 
     curl -SLsf https://cli.openfaas.com | sudo sh
 
   
 
-# Forward the gateway to your machine
+**Forward the gateway to your machine**
 
     kubectl rollout status -n openfaas deploy/gateway
 
@@ -109,7 +108,7 @@ Info for app: openfaas
 
   
 
-# If basic auth is enabled, you can now log into your gateway:
+**If basic auth is enabled, you can now log into your gateway:**
 
     export PASSWORD=$(kubectl get secret -n openfaas basic-auth -o jsonpath="{.data.basic-auth-password}" | base64 --decode; echo)
 
@@ -118,10 +117,7 @@ xxxxxxxxxxxx
     echo -n $PASSWORD | faas-cli login --username admin --password-stdin
 
 
-
     faas-cli list
-
-  
 
 **Find out more at:**
 
@@ -133,86 +129,89 @@ Create new docker swarm
 
 Forward kubectl port (may need to happen after each reboot)
  
-
     kubectl port-forward -n openfaas svc/gateway 8080:8080 &
 
 Log into cli
 
     faas-cli login --username admin --password xxxxxxxxx
 
-  
-
     jobs
-
-  
 
     curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 Install nodejs 
 
     sudo apt install -y nodejs
 
-  
-  
-
+**Configur OpenFAAS**
+Based on:
 https://hackernoon.com/how-to-create-serverless-functions-with-openfaas-in-17-steps-u21l3y7m
-
   
-
     faas-cli template store list
 
     faas-cli template pull
 
-  
 See if forwarded port is still running
 
     ps -aux | grep 8080
+    
 If not run it again
 
     kubectl port-forward -n openfaas svc/gateway 8080:8080 &
 
-  
-
     faas-cli template store list
 
-  Create account on DockerHub
+Create account on DockerHub
+
+Logon to DockerHub
 
     docker login --username your_username
 
-  
+Create a new function  
 
     faas-cli new adsl-demo --lang node
 
+Add your DockerHub accout name to the adsl-demo.yml file (image: your_dockerhub_acct/rac-hello-world:latest)
+Edit handler.js and enter your custom code
+
+Build your new function into a Docker container
+
     faas-cli build -f adsl-demo.yml
 
-  
+ List all Docker containers
+ 
     docker images
 
+Push to DockerHub
 
     faas-cli push -f adsl-demo.yml
-    
+
+Deploy to your Kubernetes cluster
       
     faas-cli deploy -f adsl-demo.yml
-      
+
+List functions in cluster
     
     faas-cli list
-    
+
+Describe details of adsl-demo function
       
     faas-cli describe adsl-demo
-    
+
+Run the function
       
     faas-cli invoke -f adsl-demo.yml adsl-demo
 
 (ctl - d to end)
 
- 
-
     curl http://127.0.0.1:8080/function/adsl-demo
 
     
-If all is good you can modify the code to your liking. Add js code to handler.js. You can copy the weather demo code from this repo Create an accout at openweathermap.org and gererate your api key. install sync-request (npm install sync-request). Add your accout name to the app .yml file (image: your_dockerhub_acct/rac-hello-world:latest)
+If all is good you can modify the code to your liking. Add js code to handler.js. You can copy the weather demo code from this repo Create an accout at openweathermap.org and gererate your api key. install sync-request (npm install sync-request). 
     
     faas-cli build -f adsl-demo.yml; 
     faas-cli push -f adsl-demo.yml; 
     faas-cli deploy -f adsl-demo.yml; 
     
+Call funtion     
+
     curl http://127.0.0.1:8080/function/adsl-demo
